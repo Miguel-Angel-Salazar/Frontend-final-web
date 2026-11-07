@@ -42,11 +42,12 @@ function extractErrorMessage(body: unknown, status: number): string {
   return `La solicitud falló (código ${status}).`;
 }
 
+export const SESSION_EXPIRED_EVENT = "respawn:session-expired";
+
 function handleUnauthorized(): void {
   sessionStore.clear();
-  if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
-    const next = encodeURIComponent(window.location.pathname);
-    window.location.assign(`/login?expired=1&next=${next}`);
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(SESSION_EXPIRED_EVENT));
   }
 }
 

@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { themeInitScript } from "@/features/common/hooks/useTheme";
+import { SiteFooter } from "@/features/common/components/layout/SiteFooter";
+import { SiteHeader } from "@/features/common/components/layout/SiteHeader";
+import { SessionExpiryListener } from "@/features/common/components/layout/SessionExpiryListener";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({
@@ -14,15 +18,26 @@ const body = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Respawn | Tienda gamer",
+  title: {
+    default: "Respawn | Tienda gamer",
+    template: "%s | Respawn",
+  },
   description:
     "Juegos, consolas, accesorios y figuras de tus personajes favoritos en un solo lugar.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${display.variable} ${body.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+    <html lang="es" suppressHydrationWarning className={`${display.variable} ${body.variable} h-full antialiased`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-full flex flex-col font-sans">
+        <SiteHeader />
+        <SessionExpiryListener />
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }
