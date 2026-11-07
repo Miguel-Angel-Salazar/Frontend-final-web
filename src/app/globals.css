@@ -1,26 +1,138 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Paleta base: papel cálido + tinta violeta, con acentos tipo arcade */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f4efe6;
+  --surface: #fffdf8;
+  --surface-soft: #ece5d8;
+  --ink: #17142b;
+  --muted: #625c78;
+  --line: #ddd3c2;
+  --coral: #ff5b3a;
+  --lime: #c8f169;
+  --violet: #7b5cff;
+  --sky: #59c3ff;
+  --sun: #ffc93c;
+}
+
+.dark {
+  --paper: #13111f;
+  --surface: #1d1a2e;
+  --surface-soft: #262238;
+  --ink: #f4efe6;
+  --muted: #a7a1bd;
+  --line: #322d4a;
+  --coral: #ff6f52;
+  --lime: #b9e85a;
+  --violet: #9a82ff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-coral: var(--coral);
+  --color-lime: var(--lime);
+  --color-violet: var(--violet);
+  --color-sky: var(--sky);
+  --color-sun: var(--sun);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+
+  --radius-blob: 2rem 2rem 2rem 0.6rem;
+  --radius-leaf: 2.2rem 0.7rem 2.2rem 0.7rem;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+  --animate-rise: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
   }
 }
 
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30% {
+    transform: rotate(-4deg);
+  }
+  60% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+::selection {
+  background: var(--lime);
+  color: #17142b;
+}
+
+@layer components {
+  /* Botón "arcade": sombra sólida que se hunde al presionar */
+  .btn-arcade {
+    box-shadow: 0 4px 0 0 var(--ink);
+    transition:
+      transform 0.12s ease,
+      box-shadow 0.12s ease,
+      background-color 0.2s ease;
+  }
+  .btn-arcade:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 0 var(--ink);
+  }
+  .btn-arcade:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 0 var(--ink);
+  }
+
+  /* Subrayado ondulado para títulos */
+  .squiggle {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8' viewBox='0 0 24 8'%3E%3Cpath d='M0 4 Q6 0 12 4 T24 4' fill='none' stroke='%23ff5b3a' stroke-width='2.5'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    background-size: 24px 8px;
+    padding-bottom: 0.35em;
+  }
+
+  /* Fondo punteado sutil */
+  .dots {
+    background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+    background-size: 18px 18px;
+  }
 }
