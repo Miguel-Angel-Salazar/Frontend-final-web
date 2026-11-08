@@ -90,7 +90,6 @@ export function ProductForm({ mode, productId }: ProductFormProps) {
   useEffect(() => {
     if (mode !== "edit" || !productId) return;
     let active = true;
-    setIsLoadingProduct(true);
     productService
       .getById(productId)
       .then((product) => {
@@ -110,18 +109,15 @@ export function ProductForm({ mode, productId }: ProductFormProps) {
   }, [mode, productId]);
 
   useEffect(() => {
-    if (!imageFile) {
-      setPreviewUrl(null);
-      return;
-    }
-    const objectUrl = URL.createObjectURL(imageFile);
-    setPreviewUrl(objectUrl);
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [imageFile]);
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
     setImageFile(file);
+    setPreviewUrl(file ? URL.createObjectURL(file) : null);
     setErrors((current) => ({ ...current, image: undefined }));
   };
 
