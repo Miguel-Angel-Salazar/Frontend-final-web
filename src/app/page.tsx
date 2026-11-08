@@ -1,9 +1,19 @@
-export default function Home() {
+import { CategoryShowcase } from "@/features/landing/components/CategoryShowcase";
+import { FeaturedProducts } from "@/features/landing/components/FeaturedProducts";
+import { HeroSection } from "@/features/landing/components/HeroSection";
+import { HowItWorks } from "@/features/landing/components/HowItWorks";
+import { MarqueeBand } from "@/features/landing/components/MarqueeBand";
+import { RolesSection } from "@/features/landing/components/RolesSection";
+
+export default function HomePage() {
   return (
-    <main className="flex flex-1 items-center justify-center p-8">
-      <h1 className="font-display text-5xl font-extrabold">
-        <span className="squiggle">Respawn</span>
-      </h1>
+    <main>
+      <HeroSection />
+      <MarqueeBand />
+      <CategoryShowcase />
+      <FeaturedProducts />
+      <HowItWorks />
+      <RolesSection />
     </main>
   );
 }
