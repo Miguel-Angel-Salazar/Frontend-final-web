@@ -19,10 +19,14 @@ Aplicación web desarrollada con **Next.js 16 (App Router), React 19, TypeScript
 
 ## Credenciales de prueba (creadas por el seed)
 
-| Rol | Correo | Contraseña | Permisos en la aplicación |
-| :--- | :--- | :--- | :--- |
-| **ADMIN** | `admin@respawn.com` | `Admin123!` | Acceso total a `/admin`, `/admin/productos/nuevo` y `/admin/productos/[id]/editar`: crear, editar y eliminar (borrado lógico) productos con imagen en S3, gestionar categorías y actualizar el estado de todos los pedidos. |
-| **USER** | `user@respawn.com` | `User123!` | Explorar `/catalogo`, ver el detalle en `/catalogo/[id]`, realizar pedidos y consultarlos o cancelarlos en `/pedidos`. Si intenta entrar a `/admin`, es redirigido automáticamente al inicio. |
+Para probar el inicio de sesión en `/login` y verificar los permisos según el rol del usuario:
+
+| Rol | Nombre | Correo | Contraseña | Vistas y permisos en la aplicación |
+| :--- | :--- | :--- | :--- | :--- |
+| **ADMIN** | Admin Respawn | `admin@respawn.com` | `Admin123!` | Acceso completo al panel de administración en `/admin`, `/admin/productos/nuevo` y `/admin/productos/[id]/editar`: crear, editar y eliminar productos con imagen, administrar categorías y actualizar el estado de todos los pedidos. |
+| **USER** | Camila Gómez | `user@respawn.com` | `User123!` | Explorar `/catalogo`, ver el detalle en `/catalogo/[id]`, realizar pedidos y consultarlos o cancelarlos en `/pedidos`. Si intenta acceder a `/admin` (incluso escribiendo la URL), es redirigido automáticamente al inicio. |
+
+> También puedes registrar cualquier cuenta nueva desde `/register` (se crea con rol `USER` e inicia sesión automáticamente).
 
 ---
 
