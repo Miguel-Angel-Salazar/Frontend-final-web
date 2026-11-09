@@ -169,7 +169,7 @@ export function CategoryManager() {
         onCancel={() => setDeleteTarget(null)}
       >
         <p>
-          Se desactivará la categoría <strong>{deleteTarget?.name}</strong> (borrado lógico).
+          Se quitará la categoría <strong>{deleteTarget?.name}</strong> del listado activo.
         </p>
       </ConfirmDialog>
     </div>

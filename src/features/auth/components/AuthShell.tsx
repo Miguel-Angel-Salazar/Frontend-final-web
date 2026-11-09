@@ -25,10 +25,9 @@ export function AuthShell({ badge, title, subtitle, accentTitle, accentCopy, chi
           </div>
 
           <div className="mt-10 rounded-[1.6rem_1.6rem_1.6rem_0.4rem] border-2 border-ink bg-lime p-4 text-[#17142b]">
-            <p className="font-display text-xs font-extrabold uppercase tracking-wider">Cuentas de prueba (seed)</p>
+            <p className="font-display text-xs font-extrabold uppercase tracking-wider">Envíos a todo el país</p>
             <p className="mt-1 text-xs font-medium">
-              Admin: <code className="font-bold">admin@respawn.com</code> · User:{" "}
-              <code className="font-bold">user@respawn.com</code>
+              Juegos, consolas, accesorios y figuras coleccionables con seguimiento en tiempo real desde tu cuenta.
             </p>
           </div>
         </aside>

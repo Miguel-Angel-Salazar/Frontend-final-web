@@ -170,7 +170,7 @@ export function ProductForm({ mode, productId }: ProductFormProps) {
             Imagen del producto
           </label>
           <p className="text-xs text-muted">
-            Sube un archivo JPG, PNG o WebP. El backend lo almacena en el bucket S3 de Supabase Storage y guarda la URL resultante.
+            Sube una imagen en formato JPG, PNG o WebP para mostrarla en el catálogo de la tienda.
           </p>
 
           <ProductImage

@@ -197,7 +197,7 @@ export function AdminDashboard() {
             onCancel={() => setDeleteTarget(null)}
           >
             <p>
-              El producto <strong>{deleteTarget?.name}</strong> cambiará su estado a inactivo (borrado lógico) y dejará de mostrarse en el catálogo público.
+              El producto <strong>{deleteTarget?.name}</strong> dejará de mostrarse en el catálogo de la tienda.
             </p>
           </ConfirmDialog>
         </div>

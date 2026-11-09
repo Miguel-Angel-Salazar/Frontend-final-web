@@ -128,7 +128,7 @@ export function AdminOrdersManager() {
         onCancel={() => setDeleteTarget(null)}
       >
         <p>
-          Se aplicará borrado lógico sobre el pedido <strong>#{deleteTarget?.id}</strong>.
+          Se quitará el pedido <strong>#{deleteTarget?.id}</strong> del listado activo.
         </p>
       </ConfirmDialog>
     </div>

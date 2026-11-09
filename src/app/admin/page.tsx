@@ -16,7 +16,7 @@ export default function AdminPage() {
             Panel de <span className="squiggle">administración</span>
           </h1>
           <p className="max-w-xl text-sm text-muted">
-            Gestiona los tres recursos del dominio: productos con subida de imagen a S3, categorías y pedidos de los clientes.
+            Publica juegos, consolas, accesorios y figuras, organiza las categorías y actualiza el estado de los pedidos.
           </p>
         </header>
 
