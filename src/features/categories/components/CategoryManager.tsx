@@ -9,12 +9,11 @@ import { EmptyState, ErrorState, InlineAlert, LoadingState } from "@/features/co
 import { getErrorMessage } from "@/features/common/http/apiError";
 import type { Category, CategoryInput } from "../domain/category";
 import { useCategories } from "../hooks/useCategories";
-import { categoryService } from "../services/categoryService";
 
 const EMPTY_CATEGORY: CategoryInput = { name: "", description: "" };
 
 export function CategoryManager() {
-  const { categories, isLoading, error, reload } = useCategories();
+  const { categories, isLoading, error, reload, createCategory, updateCategory, removeCategory } = useCategories();
 
   const [editing, setEditing] = useState<Category | null>(null);
   const [values, setValues] = useState<CategoryInput>(EMPTY_CATEGORY);
@@ -52,9 +51,9 @@ export function CategoryManager() {
     try {
       const payload = { name: values.name.trim(), description: values.description.trim() };
       if (editing) {
-        await categoryService.update(editing.id, payload);
+        await updateCategory(editing.id, payload);
       } else {
-        await categoryService.create(payload);
+        await createCategory(payload);
       }
       resetForm();
       reload();
@@ -70,7 +69,7 @@ export function CategoryManager() {
     setIsDeleting(true);
     setServerError(null);
     try {
-      await categoryService.remove(deleteTarget.id);
+      await removeCategory(deleteTarget.id);
       setDeleteTarget(null);
       reload();
     } catch (err) {

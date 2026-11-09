@@ -12,7 +12,7 @@ import { InlineAlert, LoadingState } from "@/features/common/components/StateMes
 import type { EntityId } from "@/features/common/domain/pagination";
 import { getErrorMessage } from "@/features/common/http/apiError";
 import { PLATFORMS, type Product, type ProductInput } from "../domain/product";
-import { productService } from "../services/productService";
+import { useProductActions } from "../hooks/useProducts";
 import { ProductImage } from "./ProductImage";
 
 interface ProductFormProps {
@@ -77,6 +77,7 @@ function validate(
 export function ProductForm({ mode, productId }: ProductFormProps) {
   const router = useRouter();
   const { categories, isLoading: loadingCategories } = useCategories();
+  const { getProductById, createProduct, updateProduct } = useProductActions();
 
   const [values, setValues] = useState<ProductInput>(EMPTY_VALUES);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -90,8 +91,7 @@ export function ProductForm({ mode, productId }: ProductFormProps) {
   useEffect(() => {
     if (mode !== "edit" || !productId) return;
     let active = true;
-    productService
-      .getById(productId)
+    getProductById(productId)
       .then((product) => {
         if (!active) return;
         setValues(toFormValues(product));
@@ -106,7 +106,7 @@ export function ProductForm({ mode, productId }: ProductFormProps) {
     return () => {
       active = false;
     };
-  }, [mode, productId]);
+  }, [mode, productId, getProductById]);
 
   useEffect(() => {
     return () => {
@@ -131,9 +131,9 @@ export function ProductForm({ mode, productId }: ProductFormProps) {
     setServerError(null);
     try {
       if (mode === "create") {
-        await productService.create(values, imageFile);
+        await createProduct(values, imageFile);
       } else if (productId !== undefined) {
-        await productService.update(productId, values, imageFile);
+        await updateProduct(productId, values, imageFile);
       }
       router.push("/admin");
     } catch (err) {

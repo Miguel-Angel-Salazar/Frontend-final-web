@@ -5,5 +5,11 @@ import { categoryService } from "../services/categoryService";
 
 export function useCategories() {
   const { data, ...rest } = useAsyncResource(categoryService.list, "categories");
-  return { categories: data ?? [], ...rest };
+  return {
+    categories: data ?? [],
+    createCategory: categoryService.create,
+    updateCategory: categoryService.update,
+    removeCategory: categoryService.remove,
+    ...rest,
+  };
 }

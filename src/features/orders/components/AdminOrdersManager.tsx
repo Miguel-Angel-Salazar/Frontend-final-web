@@ -10,11 +10,10 @@ import { getErrorMessage } from "@/features/common/http/apiError";
 import { formatDate, formatPrice } from "@/features/common/utils/format";
 import { ORDER_STATUSES, type Order, type OrderStatus } from "../domain/order";
 import { useOrders } from "../hooks/useOrders";
-import { orderService } from "../services/orderService";
 import { OrderStatusBadge } from "./OrderStatusBadge";
 
 export function AdminOrdersManager() {
-  const { orders, isLoading, error, reload } = useOrders();
+  const { orders, isLoading, error, reload, updateOrderStatus, removeOrder } = useOrders();
   const [updatingId, setUpdatingId] = useState<EntityId | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Order | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -24,7 +23,7 @@ export function AdminOrdersManager() {
     setUpdatingId(orderId);
     setActionError(null);
     try {
-      await orderService.updateStatus(orderId, status);
+      await updateOrderStatus(orderId, status);
       reload();
     } catch (err) {
       setActionError(getErrorMessage(err));
@@ -38,7 +37,7 @@ export function AdminOrdersManager() {
     setIsDeleting(true);
     setActionError(null);
     try {
-      await orderService.remove(deleteTarget.id);
+      await removeOrder(deleteTarget.id);
       setDeleteTarget(null);
       reload();
     } catch (err) {

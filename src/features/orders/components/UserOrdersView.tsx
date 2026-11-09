@@ -11,7 +11,6 @@ import { getErrorMessage } from "@/features/common/http/apiError";
 import { formatDate, formatPrice } from "@/features/common/utils/format";
 import type { Order } from "../domain/order";
 import { useOrders } from "../hooks/useOrders";
-import { orderService } from "../services/orderService";
 import { OrderStatusBadge } from "./OrderStatusBadge";
 
 function describeOrder(order: Order): { title: string; countLabel: string; productHref?: string } {
@@ -40,7 +39,7 @@ function describeOrder(order: Order): { title: string; countLabel: string; produ
 
 export function UserOrdersView() {
   const searchParams = useSearchParams();
-  const { orders, isLoading, error, reload } = useOrders();
+  const { orders, isLoading, error, reload, removeOrder } = useOrders();
 
   const [orderToCancel, setOrderToCancel] = useState<Order | null>(null);
   const [isCancelling, setIsCancelling] = useState(false);
@@ -53,7 +52,7 @@ export function UserOrdersView() {
     setIsCancelling(true);
     setActionError(null);
     try {
-      await orderService.remove(orderToCancel.id);
+      await removeOrder(orderToCancel.id);
       setOrderToCancel(null);
       reload();
     } catch (err) {

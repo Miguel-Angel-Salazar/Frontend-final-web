@@ -12,6 +12,7 @@ export function useProducts(filters: ProductFilters) {
   return {
     products: data?.data ?? [],
     pagination: data?.pagination,
+    removeProduct: productService.remove,
     ...rest,
   };
 }
@@ -20,4 +21,13 @@ export function useProduct(id: EntityId) {
   const loader = useCallback(() => productService.getById(id), [id]);
   const { data, ...rest } = useAsyncResource(loader, `product-${id}`);
   return { product: data, ...rest };
+}
+
+export function useProductActions() {
+  return {
+    getProductById: productService.getById,
+    createProduct: productService.create,
+    updateProduct: productService.update,
+    removeProduct: productService.remove,
+  };
 }

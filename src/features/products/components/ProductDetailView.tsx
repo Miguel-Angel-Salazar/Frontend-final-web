@@ -11,7 +11,7 @@ import { EmptyState, ErrorState, InlineAlert, LoadingState } from "@/features/co
 import type { EntityId } from "@/features/common/domain/pagination";
 import { getErrorMessage } from "@/features/common/http/apiError";
 import { formatPrice } from "@/features/common/utils/format";
-import { orderService } from "@/features/orders/services/orderService";
+import { useOrderActions } from "@/features/orders/hooks/useOrders";
 import { platformLabel } from "../domain/product";
 import { useProduct } from "../hooks/useProducts";
 import { ProductImage } from "./ProductImage";
@@ -19,6 +19,7 @@ import { ProductImage } from "./ProductImage";
 export function ProductDetailView({ id }: { id: EntityId }) {
   const router = useRouter();
   const { product, isLoading, error, reload } = useProduct(id);
+  const { createOrder } = useOrderActions();
   const { isAuthenticated, isAdmin } = useAuth();
 
   const [quantity, setQuantity] = useState(1);
@@ -51,7 +52,7 @@ export function ProductDetailView({ id }: { id: EntityId }) {
     setIsOrdering(true);
     setFormError(null);
     try {
-      await orderService.create({
+      await createOrder({
         productId: product.id,
         quantity,
         shippingAddress: shippingAddress.trim(),

@@ -13,7 +13,6 @@ import { cn, formatPrice } from "@/features/common/utils/format";
 import { AdminOrdersManager } from "@/features/orders/components/AdminOrdersManager";
 import { platformLabel, type Product, type ProductFilters } from "../domain/product";
 import { useProducts } from "../hooks/useProducts";
-import { productService } from "../services/productService";
 import { ProductImage } from "./ProductImage";
 
 type AdminTab = "products" | "categories" | "orders";
@@ -31,7 +30,7 @@ const INITIAL_FILTERS: ProductFilters = {
 export function AdminDashboard() {
   const [tab, setTab] = useState<AdminTab>("products");
   const [filters, setFilters] = useState<ProductFilters>(INITIAL_FILTERS);
-  const { products, pagination, isLoading, error, reload } = useProducts(filters);
+  const { products, pagination, isLoading, error, reload, removeProduct } = useProducts(filters);
 
   const [deleteTarget, setDeleteTarget] = useState<Product | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -42,7 +41,7 @@ export function AdminDashboard() {
     setIsDeleting(true);
     setDeleteError(null);
     try {
-      await productService.remove(deleteTarget.id);
+      await removeProduct(deleteTarget.id);
       setDeleteTarget(null);
       reload();
     } catch (err) {
