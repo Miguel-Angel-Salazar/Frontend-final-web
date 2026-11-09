@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import { themeInitScript } from "@/features/common/hooks/useTheme";
+import { AccountSideDock } from "@/features/common/components/layout/AccountSideDock";
 import { SiteFooter } from "@/features/common/components/layout/SiteFooter";
 import { SiteHeader } from "@/features/common/components/layout/SiteHeader";
 import { SessionExpiryListener } from "@/features/common/components/layout/SessionExpiryListener";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col font-sans">
         <SiteHeader />
+        <AccountSideDock />
         <SessionExpiryListener />
         <div className="flex-1">{children}</div>
         <SiteFooter />
