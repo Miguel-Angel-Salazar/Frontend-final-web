@@ -21,8 +21,8 @@ export function ProductImage({ src, alt, className, sizes = "(max-width: 768px) 
   }
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} unoptimized className="object-cover" />
+    <div className={cn("relative overflow-hidden bg-white", className)}>
+      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} unoptimized className="object-contain p-2" />
     </div>
   );
 }
