@@ -1,4 +1,4 @@
-const rawApiHost = process.env.NEXT_PUBLIC_API_HOST ?? "";
+const rawApiHost = process.env.NEXT_PUBLIC_API_HOST || "https://backend-final-web-xbbs.onrender.com";
 
 /** URL base de la API sin la barra final. Se define en NEXT_PUBLIC_API_HOST. */
 export const API_HOST = rawApiHost.replace(/\/+$/, "");

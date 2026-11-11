@@ -18,8 +18,8 @@ function validate(values: RegisterRequest): FieldErrors<RegisterRequest> {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
     errors.email = "Ingresa un correo electrónico válido.";
   }
-  if (values.password.length < 6) {
-    errors.password = "La contraseña debe tener al menos 6 caracteres.";
+  if (values.password.length < 8) {
+    errors.password = "La contraseña debe tener al menos 8 caracteres.";
   }
   return errors;
 }
@@ -81,7 +81,7 @@ export function RegisterForm() {
         type="password"
         name="password"
         autoComplete="new-password"
-        placeholder="Mínimo 6 caracteres"
+        placeholder="Mínimo 8 caracteres"
         hint="Tu sesión se inicia automáticamente al registrarte."
         value={values.password}
         onChange={(event) => setValues({ ...values, password: event.target.value })}

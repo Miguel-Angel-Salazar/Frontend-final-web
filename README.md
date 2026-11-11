@@ -10,10 +10,10 @@ Aplicación web desarrollada con **Next.js 16 (App Router), React 19, TypeScript
 
 | Recurso | Enlace |
 | :--- | :--- |
-| **Frontend desplegado (Vercel)** | _Pendiente de registrar URL de producción_ |
-| **Backend API REST desplegada** | _Pendiente de registrar URL de producción_ |
+| **Frontend desplegado (Vercel)** | [https://frontend-final-web.vercel.app](https://frontend-final-web.vercel.app) |
+| **Backend API REST desplegada (Render)** | [https://backend-final-web-xbbs.onrender.com](https://backend-final-web-xbbs.onrender.com) |
 | **Repositorio Frontend (GitHub)** | [https://github.com/Miguel-Angel-Salazar/Frontend-final-web](https://github.com/Miguel-Angel-Salazar/Frontend-final-web) |
-| **Repositorio Backend (GitHub)** | _Pendiente de enlazar repositorio backend_ |
+| **Repositorio Backend (GitHub)** | [https://github.com/Juan-Manuel3132007/Backend-final-web](https://github.com/Juan-Manuel3132007/Backend-final-web) |
 
 ---
 
@@ -126,6 +126,6 @@ src/
 
 | Integrante | Responsabilidades en el proyecto |
 | :--- | :--- |
-| **Miguel Ángel Guarnizo Salazar** | Arquitectura por features del frontend, cliente HTTP centralizado y manejo de sesión JWT (`common/` y `auth/`), vistas del catálogo con filtros combinados y paginación (`products/`), gestión de pedidos (`orders/`), panel de administración con subida de imágenes (`admin/`) y despliegue. |
-| **Compañero de equipo 2** | _(Completar nombre y módulos trabajados en backend/frontend)_ |
-| **Compañero de equipo 3** | _(Completar nombre y módulos trabajados en backend/frontend)_ |
+| **Miguel Ángel Guarnizo Salazar** | Arquitectura por features del frontend, cliente HTTP centralizado y manejo de sesión JWT (`common/` y `auth/`), vistas del catálogo con filtros combinados y paginación (`products/`), gestión de pedidos (`orders/`), panel de administración con subida de imágenes (`admin/`) y despliegue en Vercel. |
+| **Juan Manuel Moreno Muñoz** | Diseño del dominio, modelos y contratos de repositorios (`domain/`), esquemas y migraciones con Prisma y PostgreSQL en Supabase, configuración del proyecto y despliegue en Render. |
+| **Andrés Ortega** | Casos de uso y reglas de negocio (`application/`), repositorios Prisma, integración con Supabase Storage S3, autenticación JWT y bcrypt (`infrastructure/`), controladores, routers, middlewares (`interface/`), seed y pruebas automatizadas (`tests/`). |
