@@ -14,6 +14,7 @@ Aplicación web desarrollada con **Next.js 16 (App Router), React 19, TypeScript
 | **Backend API REST desplegada (Render)** | [https://backend-final-web-xbbs.onrender.com](https://backend-final-web-xbbs.onrender.com) |
 | **Repositorio Frontend (GitHub)** | [https://github.com/Miguel-Angel-Salazar/Frontend-final-web](https://github.com/Miguel-Angel-Salazar/Frontend-final-web) |
 | **Repositorio Backend (GitHub)** | [https://github.com/Juan-Manuel3132007/Backend-final-web](https://github.com/Juan-Manuel3132007/Backend-final-web) |
+| **Prototipo de diseño UI/UX (Figma)** | [Ver prototipo interactivo en Figma](https://www.figma.com/proto/77fRQHh54iMMy0fS5gm2jp/Sin-t%C3%ADtulo?node-id=4-1949&p=f&t=KDq3jNuzzMTynCzt-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A1949&show-proto-sidebar=1) |
 
 ---
 
