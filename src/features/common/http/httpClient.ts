@@ -21,7 +21,8 @@ const NETWORK_ERROR = "No pudimos conectar con el servidor. Revisa tu conexión 
 const SESSION_EXPIRED = "Tu sesión expiró. Inicia sesión otra vez.";
 
 function buildUrl(path: string, query?: Record<string, QueryValue>): string {
-  const url = new URL(`${API_HOST}${path}`, typeof window === "undefined" ? undefined : window.location.origin);
+  const base = typeof window === "undefined" ? API_HOST : window.location.origin;
+  const url = new URL(path, base);
   Object.entries(query ?? {}).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== "") {
       url.searchParams.set(key, String(value));
