@@ -53,7 +53,7 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      {serverError && <InlineAlert message={serverError} />}
+      {serverError && <InlineAlert message={serverError} onDismiss={() => setServerError(null)} />}
 
       <TextField
         label="Tu nombre o alias"

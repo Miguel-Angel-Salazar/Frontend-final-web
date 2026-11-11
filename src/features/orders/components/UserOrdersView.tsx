@@ -44,6 +44,7 @@ export function UserOrdersView() {
   const [orderToCancel, setOrderToCancel] = useState<Order | null>(null);
   const [isCancelling, setIsCancelling] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
+  const [actionSuccess, setActionSuccess] = useState<string | null>(null);
 
   const justCreated = searchParams.get("created") === "1";
 
@@ -51,8 +52,10 @@ export function UserOrdersView() {
     if (!orderToCancel) return;
     setIsCancelling(true);
     setActionError(null);
+    setActionSuccess(null);
     try {
       await removeOrder(orderToCancel.id);
+      setActionSuccess(`Pedido #${orderToCancel.id} cancelado correctamente.`);
       setOrderToCancel(null);
       reload();
     } catch (err) {
@@ -73,7 +76,10 @@ export function UserOrdersView() {
           message="¡Pedido registrado! Aquí puedes consultar su estado en cualquier momento."
         />
       )}
-      {actionError && <InlineAlert message={actionError} />}
+      {actionSuccess && (
+        <InlineAlert tone="success" message={actionSuccess} onDismiss={() => setActionSuccess(null)} />
+      )}
+      {actionError && <InlineAlert message={actionError} onDismiss={() => setActionError(null)} />}
 
       {orders.length === 0 ? (
         <EmptyState

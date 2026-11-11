@@ -19,6 +19,7 @@ export function CategoryManager() {
   const [values, setValues] = useState<CategoryInput>(EMPTY_CATEGORY);
   const [nameError, setNameError] = useState<string | undefined>();
   const [serverError, setServerError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
   const [deleteTarget, setDeleteTarget] = useState<Category | null>(null);
@@ -29,6 +30,7 @@ export function CategoryManager() {
     setValues({ name: category.name, description: category.description ?? "" });
     setNameError(undefined);
     setServerError(null);
+    setSuccessMessage(null);
   };
 
   const resetForm = () => {
@@ -48,12 +50,15 @@ export function CategoryManager() {
     setIsSaving(true);
     setNameError(undefined);
     setServerError(null);
+    setSuccessMessage(null);
     try {
       const payload = { name: values.name.trim(), description: values.description.trim() };
       if (editing) {
         await updateCategory(editing.id, payload);
+        setSuccessMessage(`Categoría «${payload.name}» actualizada.`);
       } else {
         await createCategory(payload);
+        setSuccessMessage(`Categoría «${payload.name}» creada.`);
       }
       resetForm();
       reload();
@@ -68,8 +73,10 @@ export function CategoryManager() {
     if (!deleteTarget) return;
     setIsDeleting(true);
     setServerError(null);
+    setSuccessMessage(null);
     try {
       await removeCategory(deleteTarget.id);
+      setSuccessMessage(`Categoría «${deleteTarget.name}» eliminada.`);
       setDeleteTarget(null);
       reload();
     } catch (err) {
@@ -89,7 +96,10 @@ export function CategoryManager() {
         <h2 className="font-display text-xl font-bold">
           {editing ? `Editar «${editing.name}»` : "Nueva categoría"}
         </h2>
-        {serverError && <InlineAlert message={serverError} />}
+        {serverError && <InlineAlert message={serverError} onDismiss={() => setServerError(null)} />}
+        {successMessage && (
+          <InlineAlert tone="success" message={successMessage} onDismiss={() => setSuccessMessage(null)} />
+        )}
 
         <TextField
           label="Nombre"

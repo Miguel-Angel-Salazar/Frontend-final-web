@@ -59,7 +59,7 @@ export function LoginForm() {
       {expiredNotice && !serverError && (
         <InlineAlert message="Tu sesión expiró. Inicia sesión de nuevo para continuar." />
       )}
-      {serverError && <InlineAlert message={serverError} />}
+      {serverError && <InlineAlert message={serverError} onDismiss={() => setServerError(null)} />}
 
       <TextField
         label="Correo electrónico"

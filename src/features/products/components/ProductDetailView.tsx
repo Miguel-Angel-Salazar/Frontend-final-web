@@ -138,7 +138,7 @@ export function ProductDetailView({ id }: { id: EntityId }) {
             ) : (
               <form onSubmit={handleOrder} noValidate className="space-y-4">
                 <h2 className="font-display text-xl font-bold">Hacer pedido</h2>
-                {formError && <InlineAlert message={formError} />}
+                {formError && <InlineAlert message={formError} onDismiss={() => setFormError(null)} />}
 
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-sm font-semibold">Cantidad</span>

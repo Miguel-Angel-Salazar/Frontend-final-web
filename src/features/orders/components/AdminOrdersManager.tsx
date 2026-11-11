@@ -18,12 +18,15 @@ export function AdminOrdersManager() {
   const [deleteTarget, setDeleteTarget] = useState<Order | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
+  const [actionSuccess, setActionSuccess] = useState<string | null>(null);
 
   const handleStatusChange = async (orderId: EntityId, status: OrderStatus) => {
     setUpdatingId(orderId);
     setActionError(null);
+    setActionSuccess(null);
     try {
       await updateOrderStatus(orderId, status);
+      setActionSuccess(`Estado del pedido #${orderId} actualizado correctamente.`);
       reload();
     } catch (err) {
       setActionError(getErrorMessage(err));
@@ -36,8 +39,10 @@ export function AdminOrdersManager() {
     if (!deleteTarget) return;
     setIsDeleting(true);
     setActionError(null);
+    setActionSuccess(null);
     try {
       await removeOrder(deleteTarget.id);
+      setActionSuccess(`Pedido #${deleteTarget.id} eliminado correctamente.`);
       setDeleteTarget(null);
       reload();
     } catch (err) {
@@ -52,7 +57,10 @@ export function AdminOrdersManager() {
 
   return (
     <div className="space-y-4">
-      {actionError && <InlineAlert message={actionError} />}
+      {actionError && <InlineAlert message={actionError} onDismiss={() => setActionError(null)} />}
+      {actionSuccess && (
+        <InlineAlert tone="success" message={actionSuccess} onDismiss={() => setActionSuccess(null)} />
+      )}
 
       {orders.length === 0 ? (
         <EmptyState

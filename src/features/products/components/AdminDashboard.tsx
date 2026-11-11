@@ -35,13 +35,16 @@ export function AdminDashboard() {
   const [deleteTarget, setDeleteTarget] = useState<Product | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [deleteSuccess, setDeleteSuccess] = useState<string | null>(null);
 
   const handleConfirmDelete = async () => {
     if (!deleteTarget) return;
     setIsDeleting(true);
     setDeleteError(null);
+    setDeleteSuccess(null);
     try {
       await removeProduct(deleteTarget.id);
+      setDeleteSuccess(`Producto «${deleteTarget.name}» eliminado del catálogo.`);
       setDeleteTarget(null);
       reload();
     } catch (err) {
@@ -92,7 +95,10 @@ export function AdminDashboard() {
 
       {tab === "products" && (
         <div className="space-y-6">
-          {deleteError && <InlineAlert message={deleteError} />}
+          {deleteError && <InlineAlert message={deleteError} onDismiss={() => setDeleteError(null)} />}
+          {deleteSuccess && (
+            <InlineAlert tone="success" message={deleteSuccess} onDismiss={() => setDeleteSuccess(null)} />
+          )}
 
           <div className="max-w-md">
             <label htmlFor="admin-product-search" className="sr-only">

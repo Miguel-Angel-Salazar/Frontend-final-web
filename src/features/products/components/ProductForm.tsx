@@ -158,7 +158,7 @@ export function ProductForm({ mode, productId }: ProductFormProps) {
         </Link>
       </div>
 
-      {serverError && <InlineAlert message={serverError} />}
+      {serverError && <InlineAlert message={serverError} onDismiss={() => setServerError(null)} />}
 
       <div className="grid items-start gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         {/* Subida de archivo a bucket S3 (Supabase Storage) */}
