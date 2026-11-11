@@ -10,7 +10,7 @@ Aplicación web desarrollada con **Next.js 16 (App Router), React 19, TypeScript
 
 | Recurso | Enlace |
 | :--- | :--- |
-| **Frontend desplegado (Vercel)** | [https://frontend-final-web-miguel-05a6.vercel.app](https://frontend-final-web-miguel-05a6.vercel.app) |
+| **Frontend desplegado (Vercel)** | [https://frontend-final-web-one.vercel.app](https://frontend-final-web-one.vercel.app) |
 | **Backend API REST desplegada (Render)** | [https://backend-final-web-xbbs.onrender.com](https://backend-final-web-xbbs.onrender.com) |
 | **Repositorio Frontend (GitHub)** | [https://github.com/Miguel-Angel-Salazar/Frontend-final-web](https://github.com/Miguel-Angel-Salazar/Frontend-final-web) |
 | **Repositorio Backend (GitHub)** | [https://github.com/Juan-Manuel3132007/Backend-final-web](https://github.com/Juan-Manuel3132007/Backend-final-web) |
