@@ -71,18 +71,19 @@ export function CategoryManager() {
 
   const handleConfirmDelete = async () => {
     if (!deleteTarget) return;
+    const target = deleteTarget;
     setIsDeleting(true);
     setServerError(null);
     setSuccessMessage(null);
     try {
-      await removeCategory(deleteTarget.id);
-      setSuccessMessage(`Categoría «${deleteTarget.name}» eliminada.`);
-      setDeleteTarget(null);
+      await removeCategory(target.id);
+      setSuccessMessage(`Categoría «${target.name}» eliminada.`);
       reload();
     } catch (err) {
       setServerError(getErrorMessage(err));
     } finally {
       setIsDeleting(false);
+      setDeleteTarget(null);
     }
   };
 

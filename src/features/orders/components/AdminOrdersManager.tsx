@@ -12,6 +12,23 @@ import { ORDER_STATUSES, type Order, type OrderStatus } from "../domain/order";
 import { useOrders } from "../hooks/useOrders";
 import { OrderStatusBadge } from "./OrderStatusBadge";
 
+const HIDDEN_ORDERS_KEY = "respawn_hidden_admin_orders";
+
+function readHiddenOrderIds(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(HIDDEN_ORDERS_KEY);
+    return raw ? (JSON.parse(raw) as string[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHiddenOrderIds(ids: string[]) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(HIDDEN_ORDERS_KEY, JSON.stringify(ids));
+}
+
 export function AdminOrdersManager() {
   const { orders, isLoading, error, reload, updateOrderStatus, removeOrder } = useOrders();
   const [updatingId, setUpdatingId] = useState<EntityId | null>(null);
@@ -19,6 +36,7 @@ export function AdminOrdersManager() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
+  const [hiddenIds, setHiddenIds] = useState<string[]>(() => readHiddenOrderIds());
 
   const handleStatusChange = async (orderId: EntityId, status: OrderStatus) => {
     setUpdatingId(orderId);
@@ -37,23 +55,31 @@ export function AdminOrdersManager() {
 
   const handleConfirmDelete = async () => {
     if (!deleteTarget) return;
+    const target = deleteTarget;
     setIsDeleting(true);
     setActionError(null);
     setActionSuccess(null);
     try {
-      await removeOrder(deleteTarget.id);
-      setActionSuccess(`Pedido #${deleteTarget.id} eliminado correctamente.`);
-      setDeleteTarget(null);
+      if (target.status !== "CANCELLED" && target.status !== "DELIVERED") {
+        await removeOrder(target.id);
+      }
+      const nextHidden = Array.from(new Set([...hiddenIds, String(target.id)]));
+      setHiddenIds(nextHidden);
+      saveHiddenOrderIds(nextHidden);
+      setActionSuccess(`Pedido #${target.id} eliminado del listado activo.`);
       reload();
     } catch (err) {
       setActionError(getErrorMessage(err));
     } finally {
       setIsDeleting(false);
+      setDeleteTarget(null);
     }
   };
 
   if (isLoading) return <LoadingState label="Cargando pedidos de clientes..." />;
   if (error) return <ErrorState message={error} onRetry={reload} />;
+
+  const visibleOrders = orders.filter((order) => !hiddenIds.includes(String(order.id)));
 
   return (
     <div className="space-y-4">
@@ -62,14 +88,14 @@ export function AdminOrdersManager() {
         <InlineAlert tone="success" message={actionSuccess} onDismiss={() => setActionSuccess(null)} />
       )}
 
-      {orders.length === 0 ? (
+      {visibleOrders.length === 0 ? (
         <EmptyState
           title="Sin pedidos registrados"
           description="Cuando los usuarios realicen compras en el catálogo aparecerán aquí."
         />
       ) : (
         <ul className="grid gap-4">
-          {orders.map((order) => {
+          {visibleOrders.map((order) => {
             const productName =
               order.product?.name ?? order.items?.[0]?.product?.name ?? `Pedido #${order.id}`;
 

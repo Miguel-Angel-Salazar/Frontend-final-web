@@ -39,18 +39,19 @@ export function AdminDashboard() {
 
   const handleConfirmDelete = async () => {
     if (!deleteTarget) return;
+    const target = deleteTarget;
     setIsDeleting(true);
     setDeleteError(null);
     setDeleteSuccess(null);
     try {
-      await removeProduct(deleteTarget.id);
-      setDeleteSuccess(`Producto «${deleteTarget.name}» eliminado del catálogo.`);
-      setDeleteTarget(null);
+      await removeProduct(target.id);
+      setDeleteSuccess(`Producto «${target.name}» eliminado del catálogo.`);
       reload();
     } catch (err) {
       setDeleteError(getErrorMessage(err));
     } finally {
       setIsDeleting(false);
+      setDeleteTarget(null);
     }
   };
 

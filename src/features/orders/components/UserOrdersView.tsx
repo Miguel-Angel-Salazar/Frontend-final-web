@@ -50,18 +50,19 @@ export function UserOrdersView() {
 
   const handleConfirmCancel = async () => {
     if (!orderToCancel) return;
+    const target = orderToCancel;
     setIsCancelling(true);
     setActionError(null);
     setActionSuccess(null);
     try {
-      await removeOrder(orderToCancel.id);
-      setActionSuccess(`Pedido #${orderToCancel.id} cancelado correctamente.`);
-      setOrderToCancel(null);
+      await removeOrder(target.id);
+      setActionSuccess(`Pedido #${target.id} cancelado correctamente.`);
       reload();
     } catch (err) {
       setActionError(getErrorMessage(err));
     } finally {
       setIsCancelling(false);
+      setOrderToCancel(null);
     }
   };
 
